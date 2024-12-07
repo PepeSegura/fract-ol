@@ -23,6 +23,7 @@ LIBS	+=	$(LIBFT)/libft.a
 SRCS =								\
 		srcs/main.c					\
 									\
+		srcs/fractals/julia.c		\
 		srcs/fractals/mandelbrot.c	\
 									\
 		srcs/t_complex/t_complex.c	\

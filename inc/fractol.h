@@ -58,8 +58,15 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef enum e_mode
+{
+	JULIA,
+	MANDELBROT,
+}	t_mode;
+
 typedef struct s_fractol
 {
+	t_mode		mode;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_point		cursor_pos;
@@ -94,9 +101,10 @@ void    my_cursorhook(double xpos, double ypos, void* param);
 
 /* errors.c */
 void	ft_perror(char *msg);
-void	ft_error(char *str);
+void	ft_error(char *str, bool flag);
 
 /* mandelbrot.c */
 void    draw_mandelbrot(t_fractol *fractol);
+void	draw_julia(t_fractol *fract);
 
 #endif
