@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 22:34:57 by psegura-          #+#    #+#             */
-/*   Updated: 2024/12/07 20:29:01 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/12/09 13:09:41 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	my_scrollhook(double xdelta, double ydelta, void *param)
     else if (ydelta == 1)
         zoom = 0.9;
     if (set_zoom_and_offsets(zoom, fractol) == true)
-        draw_mandelbrot(fractol);
+        draw_fractal(fractol);
 }
 
 void    my_cursorhook(double xpos, double ypos, void* param)
@@ -67,26 +67,26 @@ void    my_key_hook(mlx_key_data_t keydata, void* param)
     }
     else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
     {
-        if ((fractol->max_iter * 5) > 5000)
+        if ((fractol->max_iter * 1.1) > 2000.0)
         {
             printf("To many iterations!!\n");
             return ;
         }
         paint = 1;
-        fractol->max_iter *= 5;
-        printf("Increment Iterations %d -> %d\n", prev, fractol->max_iter);
+        fractol->max_iter *= 1.1;
+        printf("Increment Iterations %d -> %f\n", prev, fractol->max_iter);
     }
     else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
     {
-        if ((fractol->max_iter / 5) < 5)
+        if ((fractol->max_iter *= 0.9) < 2)
         {
             printf("To few iterations!!\n");
             return ;
         }
         paint = 1;
-        fractol->max_iter /= 5;
-        printf("Decrement Iterations %d -> %d\n", prev, fractol->max_iter);
+        fractol->max_iter *= 0.9;
+        printf("Decrement Iterations %d -> %f\n", prev, fractol->max_iter);
     }
     if (paint)
-        draw_mandelbrot(fractol);
+        draw_fractal(fractol);
 }

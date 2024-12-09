@@ -71,9 +71,10 @@ typedef struct s_fractol
 	mlx_image_t	*img;
 	t_point		cursor_pos;
 	t_complex	cursor;
+	t_complex	julia;
 	t_complex	screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
-	int			max_iter;
+	double		max_iter;
 	double		zoom;
 	double		offset_x;
 	double		offset_y;
@@ -103,8 +104,12 @@ void    my_cursorhook(double xpos, double ypos, void* param);
 void	ft_perror(char *msg);
 void	ft_error(char *str, bool flag);
 
-/* mandelbrot.c */
+/* draw.c */
+void    draw_fractal(t_fractol *fractol);
 void    draw_mandelbrot(t_fractol *fractol);
 void	draw_julia(t_fractol *fract);
+
+/* math.c */
+double	ft_atod(const char *str);
 
 #endif

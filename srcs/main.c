@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:58:58 by psegura-          #+#    #+#             */
-/*   Updated: 2024/12/07 20:18:42 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/12/09 13:08:03 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	mlx_stuff(t_fractol *fractol)
 		ft_error("Can't load img", true);
 	fractol->img = img;
 	fractol->mlx = mlx;
+	draw_fractal(fractol);
     mlx_key_hook(mlx, my_key_hook, fractol);
 	mlx_scroll_hook(mlx, &my_scrollhook, fractol);
 	mlx_cursor_hook(mlx, &my_cursorhook, fractol);
@@ -47,7 +48,7 @@ void	mlx_stuff(t_fractol *fractol)
 
 void	reset_fractol(t_fractol *fractol)
 {
-	fractol->max_iter = 500;
+	fractol->max_iter = 200;
 	fractol->offset_x = 0;
 	fractol->offset_y = 0;
 	fractol->zoom = 1;
@@ -63,10 +64,13 @@ void	parse_input(int argc, char **argv, t_fractol *fractol)
 		printf("Using MANDELBROT\n");
 		fractol->mode = MANDELBROT;
 	}
-	else if (argc > 1 && ft_strcmp(argv[1], "julia") == 0)
+	else if (argc == 4 && ft_strcmp(argv[1], "julia") == 0)
 	{
 		printf("Using JULIA\n");
 		fractol->mode = JULIA;
+		fractol->julia.real = ft_atod(argv[2]);
+		fractol->julia.imag = ft_atod(argv[3]);
+		// exit(0);
 	}
 	else
 		ft_error("./fractol mandelbrot\n\t./fractol julia", true);

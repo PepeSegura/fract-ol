@@ -25,6 +25,7 @@ SRCS =								\
 									\
 		srcs/fractals/julia.c		\
 		srcs/fractals/mandelbrot.c	\
+		srcs/fractals/draw.c		\
 									\
 		srcs/t_complex/t_complex.c	\
 									\
@@ -32,6 +33,7 @@ SRCS =								\
 		srcs/mlx/hooks.c			\
 									\
 		srcs/other/errors.c			\
+		srcs/other/math.c			\
 
 
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))
