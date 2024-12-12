@@ -6,7 +6,7 @@
 /*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:58:58 by psegura-          #+#    #+#             */
-/*   Updated: 2024/12/09 16:10:25 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:42:57 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	parse_input(int argc, char **argv, t_fractol *fractol)
 		fractol->mode = JULIA;
 		fractol->julia.real = ft_atod(argv[2]);
 		fractol->julia.imag = ft_atod(argv[3]);
-		// exit(0);
 	}
 	else
 		ft_error("./fractol mandelbrot\n\t./fractol julia", true);
