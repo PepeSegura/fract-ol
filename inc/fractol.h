@@ -105,6 +105,8 @@ void	ft_perror(char *msg);
 void	ft_error(char *str, bool flag);
 
 /* draw.c */
+void	map_screen_coordinates(int i, int j, t_fractol *fractol);
+int		get_color(int *iter, double *max_iter);
 void    draw_fractal(t_fractol *fractol);
 void    draw_mandelbrot(t_fractol *fractol);
 void	draw_julia(t_fractol *fract);

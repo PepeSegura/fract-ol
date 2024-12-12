@@ -20,19 +20,6 @@ int julia(int max_iter, t_complex *z, t_complex *c)
     return iterations;
 }
 
-inline void map_screen_coordinates_julia(int i, int j, t_fractol *fractol)
-{
-    fractol->screen[i][j].real = (j - SCREEN_WIDTH / 2.0) / (SCREEN_WIDTH / 2.0) * fractol->zoom + fractol->offset_x;  // Scale x to real
-    fractol->screen[i][j].imag = (i - SCREEN_HEIGHT / 2.0) / (SCREEN_HEIGHT / 2.0) * fractol->zoom + fractol->offset_y; // Scale y to imaginary
-}
-
-inline int get_color(int *iter, double *max_iter)
-{
-    if (*iter >= *max_iter)
-        return (0x000000);
-    return (0xFFFFFF - (*iter * 255 / *max_iter));
-}
-
 void draw_julia(t_fractol *fract)
 {
     int         i;
@@ -45,7 +32,7 @@ void draw_julia(t_fractol *fract)
         j = 0;
         while (j < SCREEN_WIDTH)
         {
-            map_screen_coordinates_julia(i, j, fract);
+            map_screen_coordinates(i, j, fract);
             iter = julia(fract->max_iter, &fract->screen[i][j], &fract->julia);  // Pass fixed c
             mlx_put_pixel(fract->img, j, i, get_color(&iter, &fract->max_iter));
             j++;

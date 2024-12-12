@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:58:58 by psegura-          #+#    #+#             */
-/*   Updated: 2024/12/09 13:08:03 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:10:25 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 mlx_t    *init_and_customize_mlx(t_fractol *fractol)
 {
 	(void)fractol;
-    mlx_t           *mlx;
-    mlx_win_cursor_t *cursor; 
+	mlx_t           *mlx;
+	mlx_win_cursor_t *cursor; 
 
-    mlx_set_setting(MLX_DECORATED, false);
-    mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "fractol", false);
+	// mlx_set_setting(MLX_DECORATED, false);
+	mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "fractol", false);
 	if (mlx == NULL)
 		ft_error("Can't load mlx", true);
-    cursor = mlx_create_std_cursor(MLX_CURSOR_CROSSHAIR);
-    mlx_set_cursor(mlx, cursor);
-    return (mlx);
+	cursor = mlx_create_std_cursor(MLX_CURSOR_CROSSHAIR);
+	mlx_set_cursor(mlx, cursor);
+	return (mlx);
 }
 
 void	mlx_stuff(t_fractol *fractol)
@@ -32,14 +32,14 @@ void	mlx_stuff(t_fractol *fractol)
 	mlx_t           *mlx;
 	mlx_image_t     *img;
 
-    mlx = init_and_customize_mlx(fractol);
+	mlx = init_and_customize_mlx(fractol);
 	img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		ft_error("Can't load img", true);
 	fractol->img = img;
 	fractol->mlx = mlx;
 	draw_fractal(fractol);
-    mlx_key_hook(mlx, my_key_hook, fractol);
+	mlx_key_hook(mlx, my_key_hook, fractol);
 	mlx_scroll_hook(mlx, &my_scrollhook, fractol);
 	mlx_cursor_hook(mlx, &my_cursorhook, fractol);
 	mlx_loop(mlx);

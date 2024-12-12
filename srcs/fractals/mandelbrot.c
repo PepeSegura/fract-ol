@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psegura- <psegura-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: psegura- <psegura-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 19:34:16 by psegura-          #+#    #+#             */
-/*   Updated: 2024/12/09 13:19:29 by psegura-         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:41:30 by psegura-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,35 +35,6 @@ int mandelbrot(int max_iter, t_complex *c)
     return iterations;
 }
 
-inline int get_color(int *iter, double *max_iter)
-{
-    // If the point is inside the Mandelbrot set, return black (iter >= max_iter)
-    if (*iter >= *max_iter)
-        return (0x000000FF);  // Fully transparent black (0xRRGGBBAA)
-    
-    // Normalize iteration count
-    double t = (double)*iter / *max_iter;
-
-    // Create more drastic color shifts by using sine/cosine functions
-    int r = (int)((sin(t * 3.0 * M_PI) + 1.0) * 127.5);  // Red channel oscillates with a sine wave
-    int g = (int)((sin(t * 2.0 * M_PI) + 1.0) * 127.5);  // Green channel oscillates with a different sine wave
-    int b = (int)((sin(t * 1.5 * M_PI) + 1.0) * 127.5);  // Blue channel also varies
-
-    // Make sure the RGB values are within bounds (0-255)
-    r = r < 0 ? 0 : (r > 255 ? 255 : r);
-    g = g < 0 ? 0 : (g > 255 ? 255 : g);
-    b = b < 0 ? 0 : (b > 255 ? 255 : b);
-
-    // Combine the channels into a single 32-bit color (0xRRGGBBAA)
-    return (r << 16) | (g << 8) | b | 0x000000FF;  // Set Alpha to 255 (opaque)
-}
-
-inline void map_screen_cordinates(int i, int j, t_fractol *fractol)
-{
-    fractol->screen[i][j].real = (j - SCREEN_WIDTH / 2.0) / (SCREEN_WIDTH / 2.0) * fractol->zoom + fractol->offset_x;  // Scale x to real
-    fractol->screen[i][j].imag = (i - SCREEN_HEIGHT / 2.0) / (SCREEN_HEIGHT / 2.0) * fractol->zoom + fractol->offset_y; // Scale y to imaginary
-}
-
 void    draw_mandelbrot(t_fractol *fract)
 {
     int         i;
@@ -76,7 +47,7 @@ void    draw_mandelbrot(t_fractol *fract)
         j = 0;
         while (j < SCREEN_WIDTH)
         {
-            map_screen_cordinates(i, j, fract);
+            map_screen_coordinates(i, j, fract);
             iter = mandelbrot(fract->max_iter, &fract->screen[i][j]);
             mlx_put_pixel(fract->img, j, i, get_color(&iter, &fract->max_iter));
             j++;

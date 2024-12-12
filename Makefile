@@ -2,12 +2,12 @@ MAKEFLAGS	= --no-print-directory --silent
 
 NAME	 = fractol
 
-CFLAGS	 =	-Wextra -Wall -Werror #-Wunreachable-code
+CFLAGS	 =	-Wextra -Wall -Werror -g3 -fsanitize=address #-Wunreachable-code
 CFLAGS	 += -I inc
 CFLAGS	 += -I libft
 CFLAGS	 += -O3
 
-DEBUG	 =	#-g3 -fsanitize=address
+DEBUG	 =	-g3 -fsanitize=address
 
 CPPFLAGS =	-MMD
 
