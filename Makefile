@@ -1,4 +1,4 @@
-MAKEFLAGS	= --no-print-directory --silent
+MAKEFLAGS	= --no-print-directory #--silent
 
 NAME	 = fractol
 
@@ -39,16 +39,20 @@ SRCS =								\
 OBJS = $(patsubst srcs/%.c, objs/srcs/%.o, $(SRCS))
 DEPS = $(OBJS:.o=.d)
 
-all: libmlx libft $(NAME)
+all: $(NAME)
 
-libmlx:
+MLX_LIB = $(LIBMLX)/build/libmlx42.a
+
+$(MLX_LIB):
 	@cmake -DDEBUG=1 $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-libft:
+LIBFT_LIB = $(LIBFT)/libft.a
+
+$(LIBFT_LIB):
 	@make -C $(LIBFT)
 
-$(NAME): $(OBJS)
-	$(CC) $(DEBUG) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) && printf "Linking: $(NAME)\n"
+$(NAME): $(LIBFT_LIB) $(MLX_LIB) $(OBJS)
+	@$(CC) $(DEBUG) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) && printf "Linking: $(NAME)\n"
 
 objs/srcs/%.o: ./srcs/%.c
 	@mkdir -p $(dir $@)
